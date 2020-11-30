@@ -1,0 +1,29 @@
+#cloud-config
+
+apt_update: true
+apt_upgrade: true
+
+groups:
+  - microk8s: [ubuntu]
+
+users:
+  - default
+  - name: ubuntu
+  - sudo: ALL=(ALL) NOPASSWD:ALL
+
+#packages: 
+#  - curl
+
+byobu_default: system
+
+snap:
+    commands:
+        - snap install microk8s --classic --channel=${microk8s_channel}
+
+runcmd: 
+  - chown -f -R $USER ~/.kube
+  - echo "Waiting for microk8s to finish..."
+  - microk8s status --wait-ready
+  - echo "microk8s is now finished!"
+  
+final_message: "The system is finally up, after $UPTIME seconds"
