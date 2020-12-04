@@ -20,8 +20,11 @@ snap:
     commands:
         - snap install microk8s --classic --channel=${microk8s_channel}
 
-runcmd: 
+runcmd:
+  - mkdir ~/.kube
   - chown -f -R $USER ~/.kube
+  # ubuntu should have been added to group microk8s but to be certain...
+  - sudo usermod -a -G microk8s ubuntu
   - echo "Waiting for microk8s to finish..."
   - microk8s status --wait-ready
   - echo "microk8s is now finished!"
