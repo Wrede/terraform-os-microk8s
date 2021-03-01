@@ -22,15 +22,15 @@ module "ssh-sg" {
   name                 = "ssh"
   delete_default_rules = false
   ingress_rules        = ["ssh-tcp"]
-  #ingress_with_cidr_blocks = [
-  #    {
-  #      from_port   = 25000
-  #      to_port     = 25000
-  #      protocol    = "tcp"
-  #      description = "microk8s master node"
-  #      cidr_blocks = "10.0.0.0/16"   #TODO: add subnet cidr output to network
-  #    },
-  #]
+  ingress_with_cidr_blocks = [
+      {
+        from_port   = 25000
+        to_port     = 25000
+        protocol    = "tcp"
+        description = "microk8s master node"
+        cidr_blocks = "10.0.0.0/16"   #TODO: add subnet cidr output to network
+      },
+  ]
 }
 
 module "controller" {

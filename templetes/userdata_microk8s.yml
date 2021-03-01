@@ -4,15 +4,13 @@ apt_update: true
 apt_upgrade: true
 
 groups:
-  - microk8s: [ubuntu]
+  - microk8s
 
 users:
   - default
   - name: ubuntu
-  - sudo: ALL=(ALL) NOPASSWD:ALL
-
-#packages: 
-#  - curl
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: microk8s
 
 byobu_default: system
 
@@ -21,8 +19,8 @@ snap:
         - snap install microk8s --classic --channel=${microk8s_channel}
 
 runcmd:
-  - mkdir ~/.kube
-  - chown -f -R $USER ~/.kube
+  - mkdir /home/ubuntu/.kube
+  - chown -f -R $USER /home/ubuntu/.kube
   # ubuntu should have been added to group microk8s but to be certain...
   - sudo usermod -a -G microk8s ubuntu
   - echo "Waiting for microk8s to finish..."

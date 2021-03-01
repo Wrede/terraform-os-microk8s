@@ -49,7 +49,6 @@ variable prefix_name_workers {
 variable ssh_key_pub {
   type        = string
   description = "Path to public key"
-  default = ""
 }
 
 #variable os_ssh_keypair {
